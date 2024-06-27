@@ -4,10 +4,11 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "next build && npx prisma db pull",
     "start": "next start",
     "lint": "next lint",
-    "postinstall": "prisma generate"
+    "postinstall": "prisma generate",
+    "prebuild": "npx update-browserslist-db@latest"
   },
   "dependencies": {
     "@clerk/nextjs": "^4.27.5",
