@@ -16,7 +16,7 @@ async function main() {
       ],
     })
 
-    console.log('🟢 Seed script run successfully!🟢')
+    console.log('🟢 Seeding script run successfully!🟢')
   } catch (error) {
     console.log('🔴 Error in seed script 🔴', error)
   } finally {
