@@ -1,18 +1,21 @@
 'use client'
-import { CreateEvent } from '@/actions/post-event'
-import { FormData, useAuthForm } from '@/hooks/useForm'
+
 import { useRouter } from 'next/navigation'
+import Image from 'next/image'
 import toast from 'react-hot-toast'
 import { useState, ChangeEvent } from 'react'
+import { useFieldArray } from 'react-hook-form'
+
+import { CreateEvent } from '@/actions/post-event'
+import { FormData, useAuthForm } from '@/hooks/useForm'
 import { Input } from './ui/input'
 import { Button } from './ui/button'
-import { useFieldArray } from 'react-hook-form'
 
 const EventForm = () => {
   const router = useRouter()
   const [imageSource, setImageSource] = useState<string | undefined>(undefined)
   const [uploadMode, setUploadMode] = useState<'file' | 'link'>('file')
-  const [speakers, setSpeakers] = useState<{ name: string; avatar: string }[]>([])
+  const [speakers] = useState<{ name: string; avatar: string }[]>([])
 
   const onSubmit = async (data: FormData) => {
     try {
@@ -31,7 +34,7 @@ const EventForm = () => {
   }
 
   const { register, errors, handleSubmit, reset, control } = useAuthForm(onSubmit)
-  const { fields, append, remove } = useFieldArray<any>({
+  const { append, remove } = useFieldArray<any>({
     control,
     name: 'speaker',
   })
@@ -97,11 +100,13 @@ const EventForm = () => {
                 className="block w-full rounded-md border-gray-300 shadow-sm sm:text-sm"
               />
               {imageSource && (
-                <img
+                <Image
                   src={imageSource}
                   alt="Preview"
                   className="mt-2 rounded-md shadow-sm"
                   style={{ maxWidth: '100%' }}
+                  width={30}
+                  height={50}
                 />
               )}
             </>

@@ -23,7 +23,6 @@ const ChapterIdPage = async ({ params }: { params: { courseId: string; chapterId
   const chapter = await db.chapter.findUnique({
     where: {
       id: params.chapterId,
-      courseId: params.courseId,
     },
     include: {
       muxData: true,

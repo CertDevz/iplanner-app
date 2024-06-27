@@ -12,12 +12,12 @@ export async function DELETE(request: NextRequest, { params }: { params: { cours
       return new NextResponse('Unauthorized', { status: 401 })
     }
 
-    const courseOwner = await db.course.findUnique({ where: { id: courseId, createdById: userId } })
+    const courseOwner = await db.course.findUnique({ where: { id: courseId } })
     if (!courseOwner) {
       return new NextResponse('Unauthorized', { status: 401 })
     }
 
-    const attachment = await db.attachment.delete({ where: { courseId, id: attachmentId } })
+    const attachment = await db.attachment.delete({ where: { id: attachmentId } })
 
     return NextResponse.json(attachment)
   } catch {

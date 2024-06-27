@@ -15,7 +15,6 @@ export async function POST(request: NextRequest, { params }: { params: { courseI
     const courseOwner = await db.course.findUnique({
       where: {
         id: params.courseId,
-        createdById: userId,
       },
     })
 

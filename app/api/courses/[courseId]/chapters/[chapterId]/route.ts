@@ -17,7 +17,7 @@ export async function PATCH(req: NextRequest, { params }: { params: Params }) {
       return new NextResponse('Unauthorized', { status: 401 })
     }
 
-    const ownCourse = await db.course.findUnique({ where: { id: params.courseId, createdById: userId } })
+    const ownCourse = await db.course.findUnique({ where: { id: params.courseId } })
     if (!ownCourse) {
       return new NextResponse('Unauthorized', { status: 401 })
     }
@@ -61,13 +61,13 @@ export async function DELETE(req: NextRequest, { params }: { params: Params }) {
       return new NextResponse('Unauthorized', { status: 401 })
     }
 
-    const ownCourse = await db.course.findUnique({ where: { id: params.courseId, createdById: userId } })
+    const ownCourse = await db.course.findUnique({ where: { id: params.courseId } })
     if (!ownCourse) {
       return new NextResponse('Unauthorized', { status: 401 })
     }
 
     const chapter = await db.chapter.findUnique({
-      where: { id: params.chapterId, courseId: params.courseId },
+      where: { id: params.chapterId },
     })
     if (!chapter) {
       return new NextResponse('Chapter not found', { status: 404 })

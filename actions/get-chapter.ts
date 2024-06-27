@@ -10,8 +10,8 @@ type GetChapterArgs = {
 export async function getChapter({ userId, courseId, chapterId }: GetChapterArgs) {
   try {
     const purchase = await db.purchase.findUnique({ where: { userId_courseId: { userId, courseId } } })
-    const course = await db.course.findUnique({ where: { id: courseId, isPublished: true }, select: { price: true } })
-    const chapter = await db.chapter.findUnique({ where: { id: chapterId, isPublished: true } })
+    const course = await db.course.findUnique({ where: { id: courseId }, select: { price: true } })
+    const chapter = await db.chapter.findUnique({ where: { id: chapterId } })
 
     if (!chapter || !course) {
       throw new Error('Chapter or course not found!')

@@ -19,7 +19,6 @@ export async function PATCH(req: Request, { params }: { params: { courseId: stri
     const course = await db.course.update({
       where: {
         id: courseId,
-        createdById: userId,
       },
       data: {
         title: values?.title,
@@ -46,7 +45,7 @@ export async function DELETE(req: NextRequest, { params }: { params: { courseId:
     }
 
     const course = await db.course.findUnique({
-      where: { id: params.courseId, createdById: userId },
+      where: { id: params.courseId },
       include: {
         chapters: { include: { muxData: true } },
       },

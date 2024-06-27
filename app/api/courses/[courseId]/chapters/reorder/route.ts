@@ -11,7 +11,7 @@ export async function PUT(req: NextRequest, { params }: { params: { courseId: st
     }
 
     const { list } = await req.json()
-    const courseOwner = await db.course.findUnique({ where: { id: params.courseId, createdById: userId } })
+    const courseOwner = await db.course.findUnique({ where: { id: params.courseId } })
 
     if (!courseOwner) {
       return new NextResponse('Unauthorized', { status: 401 })

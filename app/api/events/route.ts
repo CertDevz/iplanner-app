@@ -1,13 +1,11 @@
 import { auth } from '@clerk/nextjs'
 import { NextRequest, NextResponse } from 'next/server'
 import { db } from '@/lib/db'
-import { isTeacher } from '@/lib/teacher'
 
 export async function POST(request: NextRequest) {
   try {
     const { userId } = auth()
-    const { speaker, ...body } = await request.json()
-    console.log(body)
+    const { ...body } = await request.json()
 
     if (!userId) {
       return new NextResponse('Unauthorized', { status: 401 })
@@ -38,7 +36,6 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json(course)
   } catch (error) {
-    console.log(error)
     return new NextResponse('Internal Server Error' + error, { status: 500 })
   }
 }

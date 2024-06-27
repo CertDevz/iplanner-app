@@ -11,13 +11,13 @@ export async function PATCH(req: NextRequest, { params }: { params: Params }) {
       return new NextResponse('Unauthorized', { status: 401 })
     }
 
-    const ownCourse = await db.course.findUnique({ where: { id: params.courseId, createdById: userId } })
+    const ownCourse = await db.course.findUnique({ where: { id: params.courseId } })
     if (!ownCourse) {
       return new NextResponse('Unauthorized', { status: 401 })
     }
 
     const unpublishedChapter = await db.chapter.update({
-      where: { id: params.chapterId, courseId: params.courseId },
+      where: { id: params.chapterId },
       data: { isPublished: false },
     })
 
